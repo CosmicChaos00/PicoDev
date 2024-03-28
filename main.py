@@ -36,7 +36,7 @@ MPU6050.acc_range = 0
 
 # set the gyroscope range to +/- 500 degress/second 
 MPU6050.gyro_range= 1
-
+print("This file has been updated by github")
 
 i2c = I2C(0, sda=Pin(0), scl=Pin(1), freq=400000)
 imu = MPU6050(i2c)
