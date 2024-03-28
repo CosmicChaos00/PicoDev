@@ -10,3 +10,4 @@ def get_DeviceId():
 def goToDeepSleep():
     machine.deepsleep()
 
+print("Updated with Gitgub")
