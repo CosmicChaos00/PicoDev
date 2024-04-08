@@ -18,6 +18,7 @@ import updatePico
 import uploadDeviceID
 import json
 import os
+    #i was updated via http
 
 
 
