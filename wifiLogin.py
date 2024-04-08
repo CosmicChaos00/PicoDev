@@ -28,3 +28,4 @@ def wifi_Login():
         print("Error:", e)
 
 # Call the function
+wifi_Login()
