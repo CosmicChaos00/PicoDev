@@ -5,16 +5,12 @@ from machine import Pin, I2C
 from vectorMagnitude import VectorMagnitude 
 import isPlayerMoving
 import Pico
-import deviceID
 import wifiLogin
 import machine
 import utime
 import urequests
-import uos
 import gc
 import updatePico
-import json
-import os
 
 led = machine.Pin("LED", machine.Pin.OUT)
 def toggle_led():
@@ -29,8 +25,6 @@ def toggle_led():
 
 dev_ID = Pico.get_DeviceId()
 
-print(dev_ID)
-#loggin to wifi
 
 wifiLogin.wifi_Login()
 gc.collect()

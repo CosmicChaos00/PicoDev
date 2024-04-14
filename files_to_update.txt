@@ -1,9 +1,10 @@
+constantData.py
+files_to_update.txt
+imu.py
 main.py
 Pico.py
-deviceID.py
-wifiLogin.py
-isPlayerMoving.py
-vectorAngle.py
+updatePico.py
+vector3d.py
 vectorMagnitude.py
 wifi.txt
 wifiLogin.py
