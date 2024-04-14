@@ -1,0 +1,42 @@
+class Constant:
+    @staticmethod
+    def getURL():
+        URL = "https://us-east-2.aws.data.mongodb-api.com/app/data-qzajs/endpoint/data/v1/action/"
+        return URL
+    @staticmethod
+    def getAPI_KEY():
+        API_KEY = "KBQ0COPf87LPexT8QYcKj2Zz5Ll626USLubuNJtFbX1aElYzVJO876Zu0lISmB7e"
+        return API_KEY
+    @staticmethod
+    def getHubURL():
+        BASE_URL='https://raw.githubusercontent.com/CosmicChaos00/PicoDev/main/'
+        return BASE_URL
+    @staticmethod
+    def getAPI_URL():
+        GIT_API_URL='https://api.github.com/repos/CosmicChaos00/PicoDev/commits?path='
+        return GIT_API_URL
+    @staticmethod
+    def getToken():
+        TOKEN = "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"
+        return TOKEN
+    @staticmethod
+    def getOwner():
+        OWNER = "CosmicChaos00"
+        return OWNER    
+    @staticmethod
+    def getRepo():
+        REPO = "PicoDev"
+        return REPO
+    
+    @staticmethod
+    def getFiles():
+        FILES = ["constantData.py","imu.py,main.py","Pico.py","update.py","vector3d.py","vectorMagnitude.py","wifi.txt","wifi.py"]
+        return FILES
+    
+    #github api_token
+    @staticmethod
+    def getUserAgent():
+        USER_AGENT= "token4pico"
+        return USER_AGENT
+        
+
