@@ -2,25 +2,19 @@ from imu import MPU6050
 from time import sleep
 import time
 from machine import Pin, I2C
-import vectorMagnitude
+from vectorMagnitude import VectorMagnitude 
 import isPlayerMoving
 import Pico
 import deviceID
-import scanForAP
 import wifiLogin
 import machine
 import utime
 import urequests
 import uos
 import gc
-print(gc.mem_free())
 import updatePico
-import uploadDeviceID
 import json
 import os
-    #i was updated via http
-
-
 
 led = machine.Pin("LED", machine.Pin.OUT)
 def toggle_led():
@@ -33,18 +27,17 @@ def toggle_led():
     # Turn off the LED
     led.value(0)
 
-# Call the function to toggle the LED
-#get PICO manfacturimng ID
-dev_ID = deviceID.get_DeviceId()
-dev_Name = 'PicoProto'
-#scanForAP.scanNearbyAP()
+dev_ID = Pico.get_DeviceId()
 
+print(dev_ID)
 #loggin to wifi
 
 wifiLogin.wifi_Login()
 gc.collect()
 updatePico.update()
-uploadDeviceID.uploadDevice()
+#uploadDeviceID.uploadDevice()
+
+server_url = 'http://192.168.1.140:3000/upload'
 
 # set the linear acceleration range to +/- 2g's
 MPU6050.acc_range = 0
@@ -58,32 +51,38 @@ imu = MPU6050(i2c)
 
 start_time = time.ticks_ms() #get intial time
 
-def send_data_to_server(device_id, device_name):
-    base_url = 'http://192.168.1.126/connect.php'
-    params = '?DeviceID={}&DeviceName={}'.format(device_id, device_name)
-    full_url = base_url + params
-    response = urequests.get(full_url)
-    print(response.text)
-    response.close()
-
-# Example usage
-send_data_to_server(dev_ID, dev_Name)
 while True:
-    ax=round(imu.accel.x,1)
-    ay=round(imu.accel.y,1)
-    az=round(imu.accel.z,1)
-    gx=round(imu.gyro.x)
-    gy=round(imu.gyro.y)
-    gz=round(imu.gyro.z)
+    ax = round(imu.accel.x, 1)
+    ay = round(imu.accel.y, 1)
+    az = round(imu.accel.z, 1)
+    gx = round(imu.gyro.x, 1)  # Assuming you also want these rounded to one decimal
+    gy = round(imu.gyro.y, 1)
+    gz = round(imu.gyro.z, 1)
     current_time = time.ticks_ms()
     elapsed_time = time.ticks_diff(current_time, start_time)
     
-    toggle_led()
     
-    print("aX: {} aY: {} aZ: {}".format(ax,ay,az))
-        #print("Vector Magnitude: {}".format(vectorMagnitude.getVectorMagnitude(ax,ay,az)))
+    toggle_led()
+    vectInstance = VectorMagnitude(ax, ay, az)
+    magnitude = vectInstance.getVectorMagnitude()
+    theta = vectInstance.getTheta()
+    phi = vectInstance.getPhi()
+    
+    
+    data = {'data': [dev_ID, ax, ay, az, gx, gy, gz,magnitude,theta,phi]}
+    
 
-        #print("gyroX: {} gyroY: {} gyroZ: {}".format( gx,gy,gz))
-    time.sleep(2)
+    # Check if vector magnitude is adequate and call the method correctly
+    if magnitude >= 2:
+        try:
+            response = urequests.post(server_url, json=data)
+            response.close()
+            print('Data sent successfully')
+        except Exception as e:
+            print('Error sending data:', e)
+    print("Accelerometer values:", ax, ay, az)    
+    print(vectInstance.getVectorMagnitude())
+    
 
+    time.sleep(1)
 
