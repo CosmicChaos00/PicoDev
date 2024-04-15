@@ -1,5 +1,5 @@
 import urequests
-
+import wifi
 class Updater:
     def __init__(self, base_url, version_file_path, local_version_path):
         self.base_url = base_url.rstrip('/') + '/'
@@ -58,6 +58,7 @@ class Updater:
             print("System is up to date.")
 
 # Usage example
+wifi.wifi_Login()
 base_url = "https://raw.githubusercontent.com/CosmicChaos00/PicoDev/master"
 version_file_path = "version/version.txt"
 local_version_path = "local_version.txt"
