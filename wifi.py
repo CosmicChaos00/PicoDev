@@ -2,7 +2,7 @@ import network
 import utime
     #i was updated via http
     #visualStudio wrote this
-    #this is second update with vscode
+    #just another commit
 def wifi_Login():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
