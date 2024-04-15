@@ -10,8 +10,8 @@ class Constant:
     @staticmethod
     def getHubURL():
         BASE_URL='https://raw.githubusercontent.com/CosmicChaos00/PicoDev/master'
-
         return BASE_URL
+    
     @staticmethod
     def getAPI_URL():
         GIT_API_URL='https://api.github.com/repos/CosmicChaos00/PicoDev/commits?path='

@@ -1,6 +1,6 @@
 import urequests
 import wifi
-import constantData 
+from constantData import Constant
 class Updater:
     def __init__(self, base_url, version_file_path, local_version_path):
         self.base_url = base_url.rstrip('/') + '/'
@@ -60,9 +60,9 @@ class Updater:
 
 # Usage example
 wifi.wifi_Login()
-BASE_URL= constantData.getHubURL()
-version_file_path = constantData.getVersionPath()
-local_version_path = constantData.getLocalVersion_path()
+BASE_URL= Constant.getHubURL()
+version_file_path = Constant.getVersionPath()
+local_version_path = Constant.getLocalVersion_path()
 
 updater = Updater(BASE_URL, version_file_path, local_version_path)
 updater.check_for_updates()
