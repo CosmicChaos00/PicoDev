@@ -18,14 +18,15 @@ class Updater:
 
     def parse_version_data(self, version_content):
         lines = version_content.strip().split('\n')
-        version_number = lines[0].strip()
-        files = lines[1:]  # Assume the first line is the version number and the rest are files
+        version_number = lines[0].strip()  # Version number is expected to be on the first line
+        files = lines[1:]  # Remaining lines are expected to be file names
         return version_number, files
 
     def read_local_version(self):
         try:
             with open(self.local_version_path, 'r') as file:
-                local_version = file.read().strip()
+                # Only read the first line which should contain the version number
+                local_version = file.readline().strip()
                 print(f"Read local version: {local_version}")
                 return local_version
         except OSError:
@@ -59,11 +60,11 @@ class Updater:
         if local_version != remote_version:
             print(f"New version {remote_version} found. Starting update...")
             self.update_files(remote_files)
-            self.write_local_version(remote_version)  # Note this change to pass only the version number
+            self.write_local_version(remote_version)
             print("System update complete.")
         else:
             print("System is up to date.")
-
+            
 # Usage example
 wifi.wifi_Login()
 BASE_URL= Constant.getHubURL()
