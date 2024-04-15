@@ -5,13 +5,13 @@ from machine import Pin, I2C
 from vectorMagnitude import VectorMagnitude 
 import isPlayerMoving
 import Pico
-import wifiLogin
 import machine
 import utime
 import urequests
 import gc
-import updatePico
+import wifi
 
+THRES_HOLD = 2
 led = machine.Pin("LED", machine.Pin.OUT)
 def toggle_led():
     # Turn on the LED
@@ -26,10 +26,9 @@ def toggle_led():
 dev_ID = Pico.get_DeviceId()
 
 
-wifiLogin.wifi_Login()
+wifi.wifi_Login()
 gc.collect()
-updatePico.update()
-#uploadDeviceID.uploadDevice()
+#updatePico.update()
 
 server_url = 'http://192.168.1.140:3000/upload'
 
@@ -67,7 +66,7 @@ while True:
     
 
     # Check if vector magnitude is adequate and call the method correctly
-    if magnitude >= 2:
+    if magnitude >= THRES_HOLD:
         try:
             response = urequests.post(server_url, json=data)
             response.close()
@@ -78,5 +77,5 @@ while True:
     print(vectInstance.getVectorMagnitude())
     
 
-    time.sleep(1)
+    time.sleep_ms(100)
 

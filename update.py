@@ -1,73 +1,50 @@
-import requests  # Make sure to install the 'requests' library if you haven't
-from constantData import Constant
-import wifi
+import urequests
+import uos
 
-class UpdatePico:
-    def __init__(self, base_url, api_base_url, token, owner, repo, user_agent, hash_file):
-        self.base_url = base_url.rstrip('/') + '/'
-        self.api_base_url = api_base_url.rstrip('/') + '/'
-        self.token = token
-        self.owner = owner
-        self.repo = repo
-        self.user_agent = user_agent
-        self.hash_file = hash_file
-        self.local_hashes = self.load_local_hashes()
+def get_remote_version():
+    response = urequests.get("https://github.com/CosmicChaos00/PicoDev/tree/main/version")
+    if response.status_code == 200:
+        return response.text.strip()
+    else:
+        return None
 
-    def load_local_hashes(self):
-        try:
-            with open(self.hash_file, 'r') as f:
-                return json.load(f)
-        except OSError:  # Changed from FileNotFoundError to OSError
-            print("File list not found or couldn't be opened.")
-            return {}
+def get_local_version():
+    try:
+        with open("version.txt", "r") as file:
+            return file.read().strip()
+    except OSError:
+        return None
 
-    def save_local_hashes(self):
-        with open(self.hash_file, 'w') as f:
-            json.dump(self.local_hashes, f)
+def download_file(url, path):
+    response = urequests.get(url)
+    if response.status_code == 200:
+        with open(path, "wb") as file:
+            file.write(response.content)
+    else:
+        print(f"Failed to download {path}")
 
-    def get_latest_commit_hash(self, filepath):
-        url = f"{self.api_base_url}repos/{self.owner}/{self.repo}/commits?path={filepath}"
-        headers = {
-            'Authorization': f'token {self.token}',
-            'User-Agent': self.user_agent
-        }
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            commits = response.json()
-            if commits:
-                return commits[0]['sha']  # Return the SHA of the latest commit
-            else:
-                return None
-        else:
-            print(f"Failed to fetch commit data for {filepath}, status code: {response.status_code}")
-            print("Response:", response.text)
-            return None
+def update_system():
+    remote_version = get_remote_version()
+    if remote_version is None:
+        print("Failed to fetch remote version.")
+        return
 
-    def update_files(self):
-        filepaths = Constant.getFiles()
-        for filepath in filepaths:
-            latest_commit_hash = self.get_latest_commit_hash(filepath)
-            if latest_commit_hash and (self.local_hashes.get(filepath) != latest_commit_hash):
-                response = requests.get(f"{self.base_url}{filepath}")
-                if response.status_code == 200:
-                    with open(filepath, 'wb') as file:
-                        file.write(response.content)
-                    self.local_hashes[filepath] = latest_commit_hash
-                    print(f"Updated {filepath}")
-                else:
-                    print(f"Failed to download {filepath}, status code: {response.status_code}")
-            else:
-                print(f"{filepath} is up to date.")
-        self.save_local_hashes()
+    local_version = get_local_version()
+    if local_version != remote_version:
+        print("New version found. Updating...")
+        # Add all the file URLs you need to update
+        files_to_update = [
+            ("https://raw.githubusercontent.com/yourusername/yourrepo/master/main.py", "main.py"),
+            # Add more files as needed
+        ]
+        for file_url, file_path in files_to_update:
+            download_file(file_url, file_path)
+        # Update local version.txt file
+        with open("version.txt", "w") as file:
+            file.write(remote_version)
+        print("Update complete.")
+    else:
+        print("System is up to date.")
 
-# Usage
-owner = Constant.getOwner()
-repo = Constant.getRepo()
-user_agent = Constant.getUserAgent()
-token = Constant.getToken()
-base_url = Constant.getHubURL()
-api_base_url = Constant.getAPI_URL()
-hash_file = "hashes.json"
-
-updater = UpdatePico(base_url, api_base_url, token, owner, repo, user_agent, hash_file)
-updater.update_files()
+# Run the update check
+update_system()

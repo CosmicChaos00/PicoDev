@@ -17,7 +17,7 @@ class Constant:
         return GIT_API_URL
     @staticmethod
     def getToken():
-        TOKEN = "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"
+        TOKEN = "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"
         return TOKEN
     @staticmethod
     def getOwner():
