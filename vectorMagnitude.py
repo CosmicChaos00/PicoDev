@@ -18,7 +18,7 @@ class VectorMagnitude:
         
     def getTheta(self):
         # Calculate the angle in the x-y plane from the positive x-axis
-        theta = math.atan2agar(self.y_raw, self.x_raw)  # atan2 automatically handles the division by zero
+        theta = math.atan2(self.y_raw, self.x_raw)  # atan2 automatically handles the division by zero
         return theta
 
     def getPhi(self):
