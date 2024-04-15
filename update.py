@@ -1,50 +1,66 @@
 import urequests
-import uos
 
-def get_remote_version():
-    response = urequests.get("https://github.com/CosmicChaos00/PicoDev/tree/main/version")
-    if response.status_code == 200:
-        return response.text.strip()
-    else:
-        return None
+class Updater:
+    def __init__(self, base_url, version_file_path, local_version_path):
+        self.base_url = base_url.rstrip('/') + '/'
+        self.version_file_path = version_file_path
+        self.local_version_path = local_version_path
 
-def get_local_version():
-    try:
-        with open("version.txt", "r") as file:
-            return file.read().strip()
-    except OSError:
-        return None
+    def download_text(self, url):
+        response = urequests.get(url)
+        if response.status_code == 200:
+            return response.text
+        else:
+            print("Failed to download file:", url)
+            return None
 
-def download_file(url, path):
-    response = urequests.get(url)
-    if response.status_code == 200:
-        with open(path, "wb") as file:
-            file.write(response.content)
-    else:
-        print(f"Failed to download {path}")
+    def parse_version_data(self, version_content):
+        lines = version_content.strip().split('\n')
+        version_number = lines[0].strip()
+        files = lines[1:]  # Assume the first line is the version number and rest are files
+        return version_number, files
 
-def update_system():
-    remote_version = get_remote_version()
-    if remote_version is None:
-        print("Failed to fetch remote version.")
-        return
+    def read_local_version(self):
+        try:
+            with open(self.local_version_path, 'r') as file:
+                return file.read().strip()
+        except OSError:
+            return None
 
-    local_version = get_local_version()
-    if local_version != remote_version:
-        print("New version found. Updating...")
-        # Add all the file URLs you need to update
-        files_to_update = [
-            ("https://raw.githubusercontent.com/yourusername/yourrepo/master/main.py", "main.py"),
-            # Add more files as needed
-        ]
-        for file_url, file_path in files_to_update:
-            download_file(file_url, file_path)
-        # Update local version.txt file
-        with open("version.txt", "w") as file:
-            file.write(remote_version)
-        print("Update complete.")
-    else:
-        print("System is up to date.")
+    def write_local_version(self, version_content):
+        with open(self.local_version_path, 'w') as file:
+            file.write(version_content)
 
-# Run the update check
-update_system()
+    def update_files(self, file_list):
+        for file_name in file_list:
+            url = f"{self.base_url}{file_name.strip()}"
+            file_content = self.download_text(url)
+            if file_content:
+                with open(file_name.strip(), 'w') as file:
+                    file.write(file_content)
+                print(f"Updated {file_name.strip()}")
+
+    def check_for_updates(self):
+        remote_version_content = self.download_text(f"{self.base_url}{self.version_file_path}")
+        if remote_version_content is None:
+            print("Failed to fetch remote version data.")
+            return
+
+        remote_version, remote_files = self.parse_version_data(remote_version_content)
+        local_version = self.read_local_version()
+
+        if local_version != remote_version:
+            print(f"New version {remote_version} found. Starting update...")
+            self.update_files(remote_files)
+            self.write_local_version(remote_version_content)
+            print("System update complete.")
+        else:
+            print("System is up to date.")
+
+# Usage example
+base_url = "https://raw.githubusercontent.com/CosmicChaos00/PicoDev/master"
+version_file_path = "version/version.txt"
+local_version_path = "local_version.txt"
+
+updater = Updater(base_url, version_file_path, local_version_path)
+updater.check_for_updates()
