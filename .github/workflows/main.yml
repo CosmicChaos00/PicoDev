@@ -21,9 +21,11 @@ jobs:
           echo "$NEW_VERSION" > version/version.txt
       
       - name: Commit and push if changed
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git add version/version.txt
-          git commit -m "Increment version"
-          git push
+      run: |
+      git config --global user.email "action@github.com"
+      git config --global user.name "GitHub Action"
+      git add version/version.txt
+      git commit -m "Increment version"
+      # Use the PAT stored in the GH_PAT secret
+      git push https://${{ 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 }}@github.com/CosmicChaos00/PicoDev.git main
+
