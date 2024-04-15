@@ -1,7 +1,7 @@
 import network
 import utime
     #i was updated via http
-
+    #visualStudio wrote this
 def wifi_Login():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
