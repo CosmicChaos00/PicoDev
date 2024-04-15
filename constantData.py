@@ -9,7 +9,8 @@ class Constant:
         return API_KEY
     @staticmethod
     def getHubURL():
-        BASE_URL='https://raw.githubusercontent.com/CosmicChaos00/PicoDev/main/'
+        BASE_URL='https://raw.githubusercontent.com/CosmicChaos00/PicoDev/master'
+
         return BASE_URL
     @staticmethod
     def getAPI_URL():
@@ -35,8 +36,13 @@ class Constant:
     
     #github api_token
     @staticmethod
-    def getUserAgent():
-        USER_AGENT= "token4pico"
-        return USER_AGENT
+    def getVersionPath():
+        version_file_path = "version/version.txt"
+        return version_file_path
+    
+    @staticmethod
+    def getLocalVersion_path():
+        local_file_path = "local_version.txt"
+        return local_file_path
         
 
