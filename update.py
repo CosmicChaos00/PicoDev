@@ -1,7 +1,7 @@
 from constantData import Constant
 import urequests
 import wifi
-
+import machine
 class Updater:
     def __init__(self, base_url, version_file_path, local_version_path):
         self.base_url = base_url.rstrip('/') + '/'
@@ -62,9 +62,11 @@ class Updater:
             self.update_files(remote_files)
             self.write_local_version(remote_version)
             print("System update complete.")
+            print("restarting pico ...")
+            machine.reset()
         else:
             print("System is up to date.")
-            
+
 # Usage example
 wifi.wifi_Login()
 BASE_URL= Constant.getHubURL()
