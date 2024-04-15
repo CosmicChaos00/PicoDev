@@ -57,15 +57,14 @@ while True:
                 "documents": new_documents
             }, headers=headers)
 
-            if response.status_code == 200:
+            if response.status_code == 201:
                 print("Inserted new records successfully.")
             else:
                 print("Failed to insert new records:", response.json())
-        else:
-            print("No new records to add.")
+        
 
         # Wait for some time before the next run
-        time.sleep(60)  # Sleep for 60 seconds
+        time.sleep(1)  # Sleep for 60 seconds
 
     except Exception as e:
         print(f"An error occurred: {e}")
