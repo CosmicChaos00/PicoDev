@@ -1,13 +1,11 @@
 {
   "type": "service_account",
   "project_id": "pico-project-420216",
-  "private_key_id": "fa2989878284e8b23fbcdada08e29287050a8799",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDZ838TWDa2r2t2\nHa/ttar4LGA/winPyuUexw1wyWUaxxsIe5HbflGQieJ3NjSAaUZW+ZV3cg01L/Yd\nX4IqO27WhIZCTXsGtJAZ+6+K8joxKYvTcWYlMJDa9FR9Bb/ug1FFB2UTxPoad70i\nXAboOId48oYKT/GG2C6EY1WGzwKnKxy7qOqeKKFckeiRAgF9TdnWd7dyfiaU5QFE\nGlErzpYIAEMpegsvzQUqJzf2WMxp8zgku2QH40/VrzOMOr9EvWmZI1XfXVMwLz/g\ncwUFfS7DXMUCjHOHmfwgvnxZ9Mc1LeAWrILTvf3GKrTzJhvG7c8UM3lRRRSjkZiJ\nZwWpbAxjAgMBAAECggEALoJAbr9XRZqfYuAo55/psPW/QDvNslLIm828N4Iyeglc\n4m2EDYOiIibaVbgScgiFAxBVbdy/psbqTRBRdXOjTlGPWNyx0Rd83J6RsiPIeS81\ncFR1iKAZeS/ES72LXHlXQVS3pAVXnYhJquhabPmLJysRoWe30Z+WJZgQ6yiHl2Y9\nvTa/+QDk41dplfyqVZ6ax3XS9emr6a1PYd/S70jrA0zbudCwXtBD9R/nYP9/2eqC\nZ0cW5JkF4N6W/sAUqu59MAScd7cnT6mPA1TgJv2TxxLJme4jYoeWPLs12Xw+xMMh\n7vNxiPbPyUx2II9Pj+KLi4MOftwFsCpTiDBt9epnwQKBgQD8fUvtk316S2DoFEXx\n+uqBkW+TQWkEcC4jaYUazumO5FCFCNg2or6sdnxxARlQNu8tyXQuY3Me7bqfwhPK\n9OIW9lezECrXkrXh86N29bQqNXZmhy1g0/hRLaURElqtpLQw6DsBPapQgd14qe3X\n0raJP3PJO/Lu86KyYUeJgSZowwKBgQDc+0PoH4oA7s76a74fiiHgrgUmX/gfZCgQ\nz/+knSYnHWROUxL0LGRsHdvc47tljEjFZ39B4EL32a/ckL7KFNG1121Mu1MVjEmr\nTb1QYAptTcQW0lzxoUpDnDbJ2b/8u7uNbMQgpu4CT7ON8hjCfr+obCjQr8WSEdRv\nYeCDDVaT4QKBgQDONy+KTEnRVjtBkT1HU12wkS4FoQi6nTyxo38Y1CGhmQvCe+TL\nSsRcazFbwkAAab2TMdP4BzWA7zzbOlGcE8GMa4pZLz0ucB6o+qppgGeziZK4TnNb\ngARxmMwWU11IMRsSTrnSW6D8u/Q8lt0wxmJbWj2g/5t8WfRpqFYbEiZirQKBgGN7\nutaFXFuPJx8V4kHQre+4aBkem1WGgYMQIMa6+LIjSUT5oU7LrWn/BzwqSfMtdJVq\nQqAllgB+v+1MPJg9RyvWEB67Nmw8++1i0hedJRSQLfcYPT+KnSRS71dv8D6XRZgl\nnyYUAJKJzwvYMc1dwmrQRo+skgVwgXKjXa+iEZgBAoGBAIZnRdRB1YVqhXqHZ5/k\nyOBsdXEqmrXnr5gBKbASo40ayKNYY7hgUp6uO1fRfJC8IO51gIun0frC949V96mA\nJv83YFn6+qfVbKjn4CRskoeifUrvB/9e0LMcv0t6GMB2R8zb7hKc2TpavZVkHzUx\nN2Ykw8hEaeCMpF4e3qvG8Y2Z\n-----END PRIVATE KEY-----\n",
-  "client_email": "picodata@pico-project-420216.iam.gserviceaccount.com",
-  "client_id": "110389670224962321610",
+  "private_key_id": "private_key_id",
+  "private_key": "-----BEGIN PRIVATE KEY-----"
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/picodata%40pico-project-420216.iam.gserviceaccount.com",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/",
   "universe_domain": "googleapis.com"
 }
