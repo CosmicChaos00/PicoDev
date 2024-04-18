@@ -15,20 +15,24 @@ THRES_HOLD = 2
 led = machine.Pin("LED", machine.Pin.OUT)
 def toggle_led():
     # Turn on the LED
-    led.value(1)  # 1 = ON, 0 = OFF
+    led.value(1)  # 1 = ON
     
-    # Wait for a short duration (e.g., 1 second)
-    utime.sleep(1)
-    
-    # Turn off the LED
-    led.value(0)
+    # Wait for a short duration (1 second)
+
 
 dev_ID = Pico.get_DeviceId()
 
 
 wifi.wifi_Login()
 gc.collect()
-#updatePico.update()
+#update pico
+BASE_URL= Constant.getHubURL()
+version_file_path = Constant.getVersionPath()
+local_version_path = Constant.getLocalVersion_path()
+
+updater = Updater(BASE_URL, version_file_path, local_version_path)
+updater.check_for_updates()
+
 
 server_url = 'http://192.168.1.140:3000/upload'
 
@@ -48,7 +52,7 @@ while True:
     ax = round(imu.accel.x, 1)
     ay = round(imu.accel.y, 1)
     az = round(imu.accel.z, 1)
-    gx = round(imu.gyro.x, 1)  # Assuming you also want these rounded to one decimal
+    gx = round(imu.gyro.x, 1)  
     gy = round(imu.gyro.y, 1)
     gz = round(imu.gyro.z, 1)
     current_time = time.ticks_ms()
@@ -65,7 +69,7 @@ while True:
     data = {'data': [dev_ID, ax, ay, az, gx, gy, gz,magnitude,theta,phi]}
     
 
-    # Check if vector magnitude is adequate and call the method correctly
+    # Check if vector magnitude is above THRES_HOLD
     if magnitude >= THRES_HOLD:
         try:
             response = urequests.post(server_url, json=data)
@@ -73,7 +77,8 @@ while True:
             print('Data sent successfully')
         except Exception as e:
             print('Error sending data:', e)
-    print("Accelerometer values:", ax, ay, az)    
+    print("Accelerometer values:", ax, ay, az)  
+    print("gyro")  
     print(vectInstance.getVectorMagnitude())
     
 
