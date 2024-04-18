@@ -15,7 +15,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_name(key_file_path)
 client = gspread.authorize(creds)
 
 #specift the google sheet URL
-sheet_url = 'https://docs.google.com/spreadsheets/d/1vrbrZf9j2jXW-6nyJyDzGXLmlA4ujQJnhvB2Z0ke7cw/edit?usp=sharing'
+sheet_url = 'google sheet url'
 sheet = client.open_by_url(sheet_url).sheet1
 
 @app.route('/upload' , methods=['POST'])
