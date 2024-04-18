@@ -10,13 +10,13 @@ scope = ["https://spreadsheets.google.com/feeds", 'https://www.googleapis.com/au
 key_file_path = os.path.join(os.path.dirname(__file__), 'pico-project-key.json')
 creds = ServiceAccountCredentials.from_json_keyfile_name(key_file_path, scope)
 client = gspread.authorize(creds)
-sheet = client.open_by_key("1vrbrZf9j2jXW-6nyJyDzGXLmlA4ujQJnhvB2Z0ke7cw").sheet1
+sheet = client.open_by_key("google sheet access key").sheet1
 
 # MongoDB Data API setup
-url = "https://us-east-2.aws.data.mongodb-api.com/app/data-npjph/endpoint/data/v1"
+url = "Mongo https Endpoint"
 headers = {
     "Content-Type": "application/json",
-    "api-key": "UArnVQtRzE1MNZ09LjKQewwhz3Nn9jk8vcrTJzpXghvaxHsMusqcwFrgOn9K729J"
+    "api-key": "mongo API KEY"
 }
 params = {
     "dataSource": "Cluster0",
