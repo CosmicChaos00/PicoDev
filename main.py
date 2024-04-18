@@ -3,10 +3,8 @@ from time import sleep
 import time
 from machine import Pin, I2C
 from vectorMagnitude import VectorMagnitude 
-import isPlayerMoving
 import Pico
 import machine
-import utime
 import urequests
 import gc
 import wifi
