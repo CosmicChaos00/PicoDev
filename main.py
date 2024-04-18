@@ -9,6 +9,8 @@ import urequests
 import gc
 import wifi
 from constantData import Constant
+from update import Updater
+
 
 THRES_HOLD = 2
 led = machine.Pin("LED", machine.Pin.OUT)
